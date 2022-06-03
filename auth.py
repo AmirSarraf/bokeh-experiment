@@ -32,7 +32,7 @@ class LoginHandler(RequestHandler):
         auth = self.check_permission(username, password)
         if auth:
             self.set_current_user(username)
-            self.redirect(self.get_argument("next", f"/{username}"))
+            self.redirect(self.get_argument("next", "/dashboard"))
         else:
             error_msg = "?error=" + tornado.escape.url_escape("Username or password is wrong, please try again.")
             self.redirect(login_url + error_msg)
@@ -65,5 +65,5 @@ class LogoutHandler(RequestHandler):
 if __name__ == "__main__":
     application = tornado.web.Application([
         (r"/login", LoginHandler),
-        (r"^/(?P<user_id>\w+)$", YourDashboardHandler)
+        # (r"^/(?P<user_id>\w+)$", YourDashboardHandler)
     ], cookie_secret="61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=", debug=True)
